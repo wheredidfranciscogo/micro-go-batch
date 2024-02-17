@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 )
