@@ -18,9 +18,9 @@ type RobotComponent struct {
 
 // creates a new Robot instance with the given components
 func NewRobot(components []RobotComponent) *Robot {
-	return Robot{
+	return &Robot{
 		Components:   components,
-		SerialNumber: generateSpecialNumber(),
+		SerialNumber: GenerateSpecialNumber(),
 	}
 }
 
@@ -30,7 +30,7 @@ func init() {
 }
 
 // generateSpecialNumber generates a special serial number for the robot
-func generateSpecialNumber() string {
+func GenerateSpecialNumber() string {
 	const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	specialNumber := make([]byte, 6)
 	for i := range specialNumber {
