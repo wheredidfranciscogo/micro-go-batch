@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -18,9 +19,11 @@ type RobotComponent struct {
 
 // creates a new Robot instance with the given components
 func NewRobot(components []RobotComponent) *Robot {
+	serialNumber := GenerateSpecialNumber()
+	fmt.Println("Generated serial number:", serialNumber)
 	return &Robot{
 		Components:   components,
-		SerialNumber: GenerateSpecialNumber(),
+		SerialNumber: serialNumber,
 	}
 }
 

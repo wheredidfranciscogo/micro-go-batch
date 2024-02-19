@@ -57,11 +57,11 @@ func (rb *RobotBuilder) StartBuilding() {
 		rb.Building = false
 		return
 	}
-	
+
 	// Launch goroutine to simulate the construction time.
 	go func() {
 			time.Sleep(rb.BuildTime)
-			robot := &Robot{Components: batch}
+			robot := &Robot{Components: batch, SerialNumber: GenerateSpecialNumber()}
 			var results []JobResult
 			for _, component := range batch {
 					results = append(results, JobResult{Data: component.Name + " assembled"})
