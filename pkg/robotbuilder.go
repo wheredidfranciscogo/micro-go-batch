@@ -21,16 +21,10 @@ func (rb *RobotBuilder) AddComponent(component *RobotComponent) {
 	if !rb.ShutdownFlag {
 			select {
 			case rb.ComponentsQueue <- component: // pushing component to the queue
-					fmt.Println("Component added to queue") // Debug print statement
-					fmt.Println(rb.Building)
-					fmt.Println(len(rb.ComponentsQueue))
-					fmt.Println(rb.BatchSize)
 					if !rb.Building && len(rb.ComponentsQueue) >= rb.BatchSize {
-							fmt.Println("StartBuilding method called") // Debug print statement
 							rb.StartBuilding()
 					}
 			default:
-					fmt.Println("Channel is full. Component not added.") // Debug print statement
 			}
 	} else {
 			fmt.Println("No more jobs. RobotBuilder is down.")
@@ -81,7 +75,7 @@ func (rb *RobotBuilder) StartBuilding() {
 			rb.HandleBatchCompletion(robot, results)
 			
 			if len(rb.ComponentsQueue) >= rb.BatchSize {
-				rb.StartBuilding() // Start building another batch.
+				rb.StartBuilding()
         } else {
 					rb.Building = false // No more components to build, set flag to false.
         }
