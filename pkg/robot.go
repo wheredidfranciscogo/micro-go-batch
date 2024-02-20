@@ -37,7 +37,7 @@ func GenerateSpecialNumber() string {
 	const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	specialNumber := make([]byte, 6)
 	for i := range specialNumber {
-			specialNumber[i] = letters[rand.Intn(len(letters))]
+		specialNumber[i] = letters[rand.Intn(len(letters))]
 	}
 	return string(specialNumber)
 }
