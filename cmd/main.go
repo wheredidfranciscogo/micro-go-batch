@@ -1,23 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"time"
-
 	"micro-go-batch/pkg"
+	"time"
 )
 
 func main() {
-	// Create a RobotBuilder instance
+	// Create a DefaultBatchProcessor instance
+	defaultProcessor := pkg.DefaultBatchProcessor{}
+
+	// Create a RobotBuilder instance with the DefaultBatchProcessor
 	builder := &pkg.RobotBuilder{
-		BatchSize: 5,
-		BuildTime: 4 * time.Second,
+		BatchSize:      5,
+		BuildTime:      4 * time.Second,
+		BatchProcessor: &defaultProcessor, // Pass the address of the instance
 		HandleBatchCompletion: func(robot *pkg.Robot, results []pkg.JobResult) {
-			// This function will be called when a batch of robots is assembled
-			fmt.Println("Robot assembled:", robot.SerialNumber)
-			for _, result := range results {
-				fmt.Println("Result:", result.Data)
-			}
 		},
 		ComponentsQueue: make(chan *pkg.RobotComponent, 10), // Add buffer to the channel
 	}
