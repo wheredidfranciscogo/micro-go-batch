@@ -7,12 +7,15 @@ import (
 
 func main() {
 	// Create a DefaultBatchProcessor instance
-	defaultProcessor := pkg.DefaultBatchProcessor{}
+	defaultProcessor := pkg.DefaultBatchProcessor{
+		BatchSize: 4,
+		BuildTime: 2 * time.Second,
+	}
 
 	// Create a RobotBuilder instance with the DefaultBatchProcessor
 	builder := &pkg.RobotBuilder{
-		BatchSize:      5,
-		BuildTime:      4 * time.Second,
+		BatchSize:      defaultProcessor.BatchSize,
+		BuildTime:      defaultProcessor.BuildTime,
 		BatchProcessor: &defaultProcessor, // Pass the address of the instance
 		HandleBatchCompletion: func(robot *pkg.Robot, results []pkg.JobResult) {
 		},
@@ -34,7 +37,7 @@ func main() {
 	go func() {
 		for _, component := range components {
 			builder.AddComponent(component)
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(400 * time.Millisecond)
 		}
 	}()
 

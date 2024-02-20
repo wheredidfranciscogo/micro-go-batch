@@ -1,6 +1,9 @@
 package pkg
 
-import "fmt"
+import (
+  "fmt"
+  "time"
+)
 
 // BatchProcessor interface defines the method for processing batches of results
 type BatchProcessor interface {
@@ -8,11 +11,23 @@ type BatchProcessor interface {
 }
 
 // DefaultBatchProcessor is a default implementation of the BatchProcessor interface
-type DefaultBatchProcessor struct{}
+type DefaultBatchProcessor struct{
+  BatchSize int           // Batch size for processing
+	BuildTime time.Duration // Time interval for building a batch
+}
 
 // Process is the implementation of the Process method of the BatchProcessor interface
 func (dbp *DefaultBatchProcessor) Process(robot *Robot, results []JobResult) {
 	fmt.Println("Default batch processing...")
+
+  // Simulate batch processing time
+	time.Sleep(dbp.BuildTime)
+
+  // This function will be called when a batch of robots is assembled
+	fmt.Println("Robot assembled:", robot.SerialNumber)
+	for _, result := range results {
+		fmt.Println("Result:", result.Data)
+	}
 
 	// Log each job result
 	//  for _, result := range results {
@@ -44,8 +59,8 @@ func (dbp *DefaultBatchProcessor) Process(robot *Robot, results []JobResult) {
 	// }
 
 	// This function will be called when a batch of robots is assembled
-	fmt.Println("Robot assembled:", robot.SerialNumber)
-	for _, result := range results {
-		fmt.Println("Result:", result.Data)
-	}
+	// fmt.Println("Robot assembled:", robot.SerialNumber)
+	// for _, result := range results {
+	// 	fmt.Println("Result:", result.Data)
+	// }
 }
